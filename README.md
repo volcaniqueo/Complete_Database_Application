@@ -87,6 +87,9 @@ Due to a bug in the _read_data.py_ file, time1 column in the occupience_info rel
 Since we handled this in backend, this **DOES NOT AFFECT UI**. Users can still write input and view output as (e.g. 2023-03-15) whenever needed.
 
 ### About View Operations in UI:
-For view operations of database manager and director user types, we put all operations into one page for these user types. In the dropdown table (select tag) there exists also string R<operation_number> which refers to requirement <operation_number> from project description. Since two views of audience user type are in separate pages we didn't specify the operation number because the names are explicit enough. Lastly, all other operations are also in separate pages with explicit naming conventions.    
+For view operations of database manager and director user types, we put all operations into one page for these user types. In the dropdown table (select tag) there exists also string R<operation_number> which refers to requirement <operation_number> from project description. Since two views of audience user type are in separate pages we didn't specify the operation number because the names are explicit enough. Lastly, all other operations are also in separate pages with explicit naming conventions.   
+
+### About ORM (Object Relational Modeling)
+A better implementation would include the ORM feature of Django, but we are NOT permitted to use it, according to the project description.
 
 
