@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DB Manager Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the DB Manager Home Page</h1>
+    <form action="{% url 'add_user' %}" method="get">
+        <button type="submit">Add User</button>
+    </form>
+    <form action="{% url 'delete_audience' %}" method="get">
+        <button type="submit">Delete Audience</button>
+    </form>
+    <form action="{% url 'update_director' %}" method="get">
+        <button type="submit">Update Director Info</button>
+    </form>
+    <form action="{% url 'view_list' %}" method="get">
+        <button type="submit">View Lists</button>
+    </form>
+    <form action="{% url 'db_log_out' %}" method="get">
+        <button type="submit">Log Out</button>
+    </form>
+</body>
+</html>

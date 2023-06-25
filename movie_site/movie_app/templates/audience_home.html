@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audience Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Audience Home Page</h1>
+    <form action="{% url 'buy_ticket' %}" method="get">
+        <button type="submit">Buy Ticket</button>
+    </form>
+    <form action="{% url 'tickets' %}" method="get">
+        <button type="submit">See Tickets</button>
+    </form>
+    <form action="{% url 'list_movies' %}" method="get">
+        <button type="submit">List Movies</button>
+    </form>
+    <form action="{% url 'audience_log_out' %}" method="get">
+        <button type="submit">Log Out</button>
+    </form>
+</body>
+</html>

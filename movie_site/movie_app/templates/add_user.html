@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        #nationality-input {
+            display: none;
+        }
+        #nationality-label {
+            display: none;
+        }
+    </style>
+    <script>
+        function showInput() {
+            var choice = document.getElementById("types").value;
+
+            if (choice === "director") {
+                document.getElementById("nationality-input").required = true;
+                document.getElementById("nationality-input").style.display = "block";
+                document.getElementById("nationality-label").style.display = "block";
+            } else {
+                document.getElementById("nationality-input").required = false;
+                document.getElementById("nationality-input").style.display = "none";
+                document.getElementById("nationality-label").style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>DB manager creates user here.</h1>
+    <form method="post" >
+        {% csrf_token %}
+        <label for="user_type">User Type:</label>
+        <select name="user_type" id="types" onchange="showInput()" required>,
+            <option value="" selected disabled>Select</option>
+            <option type="text" value="audience">Audience</option>
+            <option type="text" value="director">Director</option>
+        </select><br/>
+        
+        <label for="name">Name: (STRING)</label>
+        <input type="text" name="name" required><br>
+
+        <label for="surname">Surname: (STRING)</label>
+        <input type="text" name="surname" required><br>
+        
+        <label for="username">Username: (STRING)</label>
+        <input type="text" name="username" required><br>
+        
+        <label for="password">Password: (STRING)</label>
+        <input type="text" name="password" required><br>
+
+        <label for="nationality" id="nationality-label">Nation: (STRING)</label>
+        <input type="text" name="nationality" id="nationality-input" required><br>
+
+        <button type="submit">Add User</button>
+
+        {% if result_message %}
+        <p>{{ result_message }}</p>
+        {% endif %}
+    </form>
+    
+    
+
+    <form action="{% url 'db_home' %}" method="get">
+        <button type="submit">Return to home page</button>
+    </form>
+</body>
+</html>

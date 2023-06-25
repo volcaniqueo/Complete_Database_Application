@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detailed List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        .input-container {
+            display: none;
+        }
+    </style>
+    <script>
+        function showInput() {
+            var choice = document.getElementById("choice").value;
+            var inputContainer = document.getElementById("input-container");
+
+            if (choice === "movies" || choice === "directors-s") {
+                document.getElementById("username-input").required = true;
+                document.getElementById("username-input").style.display = "block";
+                document.getElementById("movie-id-input").required = false;
+                document.getElementById("movie-id-input").style.display = "none";
+                document.getElementById("username-label").style.display = "block";
+                document.getElementById("movie-id-label").style.display = "none";
+            } else if (choice === "ratings") {
+                document.getElementById("username-input").required = false;
+                document.getElementById("username-input").style.display = "none";
+                document.getElementById("movie-id-input").required = true;
+                document.getElementById("movie-id-input").style.display = "block";
+                document.getElementById("movie-id-label").style.display = "block";
+                document.getElementById("username-label").style.display = "none";
+            } else {
+                document.getElementById("username-input").required = false;
+                document.getElementById("username-input").style.display = "none";
+                document.getElementById("movie-id-input").required = false;
+                document.getElementById("movie-id-input").style.display = "none";
+            }
+            
+            inputContainer.style.display = choice !== "directors" ? "block" : "none";
+        }
+    </script>
+    <script>
+        function openPopup() {
+            var myArray = JSON.parse('{{ viewlist_json|escapejs }}');
+            var choice = JSON.parse('{{ choice_json|escapejs }}');
+            var popupWindow = window.open('', '_blank', 'width=200,height=200');
+            popupWindow.document.write('<html><head><title>View</title></head><body>');
+            popupWindow.document.write('<h1>View:</h1>');
+            popupWindow.document.write('<ul>');
+            if (choice === "directors") {
+                popupWindow.document.write('<li style="color: red;"> USERNAME NAME SURNAME NATIONALITY PID </li>');
+            }
+            else if (choice === "directors-s") {
+                popupWindow.document.write('<li style="color: red;"> MID MOVIE-NAME TID DISTRICT TIME SLOT </li>');
+            }
+            else if (choice === "ratings") {
+                popupWindow.document.write('<li style="color: red;"> MID MOVIE-NAME AVG-RATING </li>');
+            }
+            else if (choice === "movies") {
+                popupWindow.document.write('<li style="color: red;"> MID MOVIE-NAME RATING </li>');
+            }
+            
+            for (var i = 0; i < myArray.length; i++) {
+                popupWindow.document.write('<li>');
+                for (var j = 0; j < myArray[i].length; j++) {
+                    if (j == myArray[i].length - 1) {
+                        popupWindow.document.write(myArray[i][j] + ' ');
+                    }
+                    else{
+                        popupWindow.document.write(myArray[i][j] + ' | ');
+                    }
+                }
+                popupWindow.document.write('</li>');
+            }
+
+            popupWindow.document.write('</ul>');
+            popupWindow.document.write('</body></html>');
+        }
+    </script>
+</head>
+<body>
+    <h1>DB manager sees various lists.</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="choice">Choose a category:</label>
+        <select id="choice" name="choice" onchange="showInput()" required>
+            <option value="" selected disabled>Select</option>
+            <option value="directors">Directors (ALL) R5</option>
+            <option value="directors-s">Directors (SPECIFIC) R7</option>
+            <option value="ratings">Ratings (SPECIFIC) R8</option>
+            <option value="movies">Ratings R6</option>
+        </select>
+
+        <div id="input-container" class="input-container">
+            <label for="username-input" id="username-label">Enter username:</label>
+            <input type="text" id="username-input" name="username" required>
+
+            <label for="movie-id-input" id="movie-id-label">Enter movie ID:</label>
+            <input type="text" id="movie-id-input" name="movie_id" required>
+        </div>
+
+        <button type="submit" id="submit-button">Submit</button> 
+    </form>
+
+    <button type="button" id="view-button-3" onclick="openPopup()">View</button>
+
+    <form action="{% url 'db_home' %}" method="get">
+        <button type="submit" id="home-button">Return to home page</button>
+    </form>
+</body>
+</html>

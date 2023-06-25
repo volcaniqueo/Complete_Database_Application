@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buy Ticket</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>User buys a ticket for a movie session here.</h1>
+    <form method="post" >
+        {% csrf_token %}
+
+        <label for="session_id">Session ID: (INT)</label>
+        <input type="text" name="session_id" required><br>
+
+        <button type="submit">Buy Ticket</button>
+        {% if result_message %}
+        <p>{{ result_message }}</p>
+        {% endif %}
+    </form>
+    
+    
+
+    <form action="{% url 'audience_home' %}" method="get">
+        <button type="submit" id="home-button">Return to home page</button>
+    </form>
+</body>
+</html>

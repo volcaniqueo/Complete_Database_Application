@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script>
+        function openPopup() {
+            var myArray = JSON.parse('{{ viewlist_json|escapejs }}');
+            var popupWindow = window.open('', '_blank', 'width=200,height=200');
+            popupWindow.document.write('<html><head><title>View</title></head><body>');
+            popupWindow.document.write('<h1>View:</h1>');
+            popupWindow.document.write('<ul>');
+            popupWindow.document.write('<li style="color: red;"> MID MOVIE-NAME D-SURNAME PLATROFM TID TIME SLOT PLIST </li>');
+            
+            for (var i = 0; i < myArray.length; i++) {
+                popupWindow.document.write('<li>');
+                for (var j = 0; j < myArray[i].length; j++) {
+                    if (j == myArray[i].length - 1) {
+                        popupWindow.document.write(myArray[i][j] + ' ');
+                    }
+                    else{
+                        popupWindow.document.write(myArray[i][j] + ' | ');
+                    }
+                }
+                popupWindow.document.write('</li>');
+            }
+
+            popupWindow.document.write('</ul>');
+            popupWindow.document.write('</body></html>');
+        }
+    </script>
+</head>
+<body>
+    <h1>Audience can see all movies here.</h1>
+    <button type="button" id="button-ticket" onclick="openPopup()">View</button>
+    <form action="{% url 'audience_home' %}" method="get">
+        <button type="submit" id="home-button">Return to home page</button>
+    </form>
+</body>
+</html>

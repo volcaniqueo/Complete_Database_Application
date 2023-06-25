@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Movie</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        #theater_form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Director adds a new movie here.</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="movie_id">Movie ID: (INT)</label>
+        <input type="text" name="movie_id" required><br>
+
+        <label for="movie_name">Movie Name: (STRING)</label>
+        <input type="text" name="movie_name" required><br>
+
+        <label for="duration">Duration: (INT)</label>
+        <input type="text" name="duration" required><br>
+        
+        <label for="theatre_id">Theatre ID: (INT)</label>
+        <input type="text" name="theatre_id" required><br>
+        
+        <label for="time_slot">Time Slot: (INT)</label>
+        <input type="text" name="time_slot" required><br>
+
+        <label for="time">Time (e.g. 2023-03-15) :</label>
+        <input type="text" name="time" required><br>
+
+        <label for="time">Genre List (e.g. Animation, Comedy):</label>
+        <input type="text" name="genre_list" required><br>
+
+        <button type="submit">Add Movie</button>
+
+        <p>{{ result_message }}</p>
+    </form>
+    
+    {% if theater_message %}
+    <form method="post" id="theater-form">
+        {% csrf_token %}
+
+        <label for="theater_id-2">Theater ID: (INT)</label>
+        <input type="text" name="theater_id-2" required><br>
+
+        <label for="theater_name-2">Theater Name: (STRING)</label>
+        <input type="text" name="theater_name-2" required><br>
+
+        <label for="theater_capacity">Theater Capacity: (INT)</label>
+        <input type="text" name="theater_capacity" required><br>
+        
+        <label for="theater_district">Theatre District: (STRING)</label>
+        <input type="text" name="theater_district" required><br>
+
+        <button type="submit">Add Theater</button>
+
+        <p>{{ result_message_2 }}</p>
+    </form>
+    {% endif %}
+
+    <form action="{% url 'director_home' %}" method="get">
+        <button type="submit" id="home-button">Return to home page</button>
+    </form>
+</body>
+</html>

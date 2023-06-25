@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Audience</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>DB manager deletes audience instance here.</h1>
+    <form method="post" >
+        {% csrf_token %}
+
+        <label for="username">Username: (STRING)</label>
+        <input type="text" name="username" required><br>
+        
+        <button type="submit">Delete</button>
+        {% if result_message %}
+        <p>{{ result_message }}</p>
+        {% endif %}
+    </form>
+
+    
+
+    <form action="{% url 'db_home' %}" method="get">
+        <button type="submit">Return to home page</button>
+    </form>
+</body>
+</html>

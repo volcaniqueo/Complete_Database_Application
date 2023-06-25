@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Director</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>DB manager updates director info here.</h1>
+    <form method="post" >
+        {% csrf_token %}
+        <label for="username">Username: (STRING)</label>
+        <input type="text" name="username" required><br>
+
+        <label for="platform_id">New Platform ID: (INT)</label>
+        <input type="text" name="platform_id" required><br>
+
+        <button type="submit">Update</button>
+        {% if result_message %}
+        <p>{{ result_message }}</p>
+        {% endif %}
+    </form>
+    
+
+
+    <form action="{% url 'db_home' %}" method="get">
+        <button type="submit">Return to home page</button>
+    </form>
+</body>
+</html>

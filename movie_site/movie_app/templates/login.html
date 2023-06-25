@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Login</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <label for="username">Username: (STRING)</label>
+        <input type="text" name="username" required><br>
+        <label for="password">Password: (STRING)</label>
+        <input type="password" name="password" required><br>
+        <label for="user_type">User Type:</label>
+        <select name="user_type" required>
+            <option value="">Select user type</option>
+            <option value="audience">Audience</option>
+            <option value="database_manager">Database Manager</option>
+            <option value="director">Director</option>
+        </select><br>
+        <button type="submit">Login</button>
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Predecessor Movie</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Director adds a predecessor to a movie here.</h1>
+    <form method="post" >
+        {% csrf_token %}
+
+        <label for="movie_id">Movie ID of the successor: (INT)</label>
+        <input type="text" name="movie_id" required><br>
+
+        <label for="movie_id_predecessor">Movie ID of the predecessor: (INT)</label>
+        <input type="text" name="movie_id_predecessor" required><br>
+        
+        <button type="submit">Add Predecessor</button>
+        {% if result_message %}
+        <p>{{ result_message }}</p>
+        {% endif %}
+    </form>
+    
+    
+
+    <form action="{% url 'director_home' %}" method="get">
+        <button type="submit" id="home-button">Return to home page</button>
+    </form>
+</body>
+</html>

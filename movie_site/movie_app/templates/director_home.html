@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Director Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Director Home Page</h1>
+    
+    <form action="{% url 'add_movie' %}" method="get">
+        <button type="submit">Add Movie</button>
+    </form>
+    
+    <form action="{% url 'add_predecessor' %}" method="get">
+        <button type="submit">Add Predecessor to Movie</button>
+    </form>
+
+    <form action="{% url 'update_movie' %}" method="get">
+        <button type="submit">Update Movie Info</button>
+    </form>
+
+    <form action="{% url 'view_list_director' %}" method="get">
+        <button type="submit">View Lists</button>
+    </form>
+
+    <form action="{% url 'director_log_out' %}" method="get">
+        <button type="submit">Log Out</button>
+    </form>
+   
+</body>
+</html>
